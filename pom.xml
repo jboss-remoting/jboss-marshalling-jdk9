@@ -23,7 +23,7 @@
 
     <groupId>org.jboss.marshalling</groupId>
     <artifactId>jboss-marshalling-jdk9-supplement</artifactId>
-    <version>1.0.Final-SNAPSHOT</version>
+    <version>1.0.Final</version>
 
     <parent>
         <groupId>org.jboss</groupId>
@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.jboss.marshalling</groupId>
             <artifactId>jboss-marshalling</artifactId>
-            <version>1.4.12.Final-SNAPSHOT</version>
+            <version>1.4.12.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
