@@ -44,13 +44,14 @@
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <trimStackTrace>false</trimStackTrace>
-                     <!-- Modules ignores Class-Path -->
+                     <!-- Modules ignore Class-Path -->
                     <useManifestOnlyJar>false</useManifestOnlyJar>
                     <printSummary>true</printSummary>
                     <includes>
                         <include>**/*TestCase.java</include>
                     </includes>
                     <forkMode>always</forkMode>
+                    <argLine>--permit-illegal-access</argLine>
                 </configuration>
             </plugin>
         </plugins>
