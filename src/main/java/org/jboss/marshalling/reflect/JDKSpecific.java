@@ -35,7 +35,7 @@ final class JDKSpecific {
     });
 
     static Constructor<?> newConstructorForSerialization(Class<?> classToInstantiate, Constructor<?> constructorToCall) {
-        return reflectionFactory.newConstructorForSerialization(classToInstantiate);
+        return reflectionFactory.newConstructorForSerialization(classToInstantiate, constructorToCall);
     }
 
 }
