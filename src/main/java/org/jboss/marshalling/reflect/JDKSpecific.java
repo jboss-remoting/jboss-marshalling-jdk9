@@ -19,6 +19,7 @@
 package org.jboss.marshalling.reflect;
 
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
@@ -50,6 +51,8 @@ final class JDKSpecific {
         private final MethodHandle writeObject;
         private final MethodHandle readResolve;
         private final MethodHandle writeReplace;
+        private final Constructor<?> noArgConstructor;
+        private final Constructor<?> objectInputConstructor;
 
         SerMethods(Class<?> clazz) {
             readObject = reflectionFactory.readObjectForSerialization(clazz);
@@ -57,6 +60,21 @@ final class JDKSpecific {
             writeObject = reflectionFactory.writeObjectForSerialization(clazz);
             readResolve = reflectionFactory.readResolveForSerialization(clazz);
             writeReplace = reflectionFactory.writeReplaceForSerialization(clazz);
+            Constructor<?> ctor;
+            Constructor<?> noArgConstructor = null;
+            try {
+                ctor = clazz.getDeclaredConstructor();
+                noArgConstructor = reflectionFactory.newConstructorForSerialization(clazz, ctor);
+            } catch (NoSuchMethodException ignored) {
+            }
+            this.noArgConstructor = noArgConstructor;
+            Constructor<?> objectInputConstructor = null;
+            try {
+                ctor = clazz.getDeclaredConstructor(ObjectInput.class);
+                objectInputConstructor = reflectionFactory.newConstructorForSerialization(clazz, ctor);
+            } catch (NoSuchMethodException ignored) {
+            }
+            this.objectInputConstructor = objectInputConstructor;
         }
 
         boolean hasWriteObject() {
@@ -129,5 +147,12 @@ final class JDKSpecific {
             }
         }
 
+        Constructor<?> getNoArgConstructor() {
+            return noArgConstructor;
+        }
+
+        Constructor<?> getObjectInputConstructor() {
+            return objectInputConstructor;
+        }
     }
 }
